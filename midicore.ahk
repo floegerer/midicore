@@ -1,14 +1,16 @@
 
 #Persistent
-#SingleInstance , force
-#InstallKeybdHook
+#SingleInstance, force
+;#InstallKeybdHook
+
 
 
 ; Set AHK config
 
-Menu, Tray, Icon, resources\midilab.ico
+Menu, Tray, Icon, resources\tray.ico
 SendMode Input
 SetWorkingDir %A_ScriptDir%
+SetTitleMatchMode 2
 
 
 
@@ -21,31 +23,16 @@ if A_OSVersion in WIN_NT4,WIN_95,WIN_98,WIN_ME ; If not Windows XP or greater, q
 }
 
 
-; Set midilab version
 
-version = midilab
+; Set midicore version
 
-
-
-; Load values from the ini file and refresh ports
-
-ReadIni()
-gosub, MidiPortRefresh
+version = midicore
 
 
 
-; Test ports and listen to MIDI input
+; Open ports and listen
 
-TestPorts(numports,numports2)
-gosub, MidiListen
-gosub, MidiOut
-gosub, Develop
-
-
-
-; Open Midi Montitor on Startup
-
-;gosub, MidiMonitor
+#include core/startup.ahk
 
 
 
