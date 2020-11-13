@@ -10,7 +10,7 @@ It also gives you the ability to send MIDI messages by pressing keys on your key
 ## Installation
 
 - Download the current version of AHK at https://www.autohotkey.com/ or https://www.autohotkey.com/download/
-- Run the application by launching midilab.ahk
+- Run the application by launching midicore.ahk
 - Make sure the app runs in the correct folder if you eg. create a shortcut
 
 ## Shortcuts
@@ -24,7 +24,7 @@ Let's start with a list of important files & folders and their purpose:
 
 | File or folder | Description | Status |
 | --- | -- | -- |
-| midilab.ahk | This is the "application" file that starts midilab | Needs refactoring |
+| midicore.ahk | This is the "application" file that starts midicore | Needs refactoring |
 | user\midi-in.ahk | Rules for transforming MIDI input to keypresses or any other output | Clean & WIP |
 | user\midi-out.ahk | Easy way to generate MIDI messages with hotkeys | Needs refactoring |
 | user | This folder contains all user rules, templates (coming) and examples (coming) | WIP |
