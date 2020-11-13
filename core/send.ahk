@@ -6,8 +6,8 @@
 RelayCC:
 {
   type := "CC" ; Only used in the midi display - has nothing to do with message output
-  MidiOutDisplay(type, statusbyte, chan , CC_num, value) ; update the MidiMonitoritor gui
-  midiOutShortMsg(h_midiout, (Channel+175), CC_num, CCIntVal)
+  MidiOutDisplay(type, statusbyte, chan , number, value) ; update the MidiMonitoritor gui
+  midiOutShortMsg(h_midiout, (chan+175), number, value)
 
   ;MsgBox, 0, ,sendcc triggered , 1 ; for testing purposes only
 }
