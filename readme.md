@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Midilab is an application written in Autohotkey, that gives you the ability to remap MIDI messages to keystrokes, key combinations, mouse clicks or mousewheel turns. It's not limited to theses things though. The full power of AHK can be used to transform MIDI input. Be creative.
+Midicore is an application written in Autohotkey, that gives you the ability to remap MIDI messages to keystrokes, key combinations, mouse clicks or mousewheel turns. It's not limited to theses things though. The full power of AHK can be used to transform MIDI input. Be creative.
 
-It also gives you the ability to send MIDI messages by pressing keys on your keyboard or using your mouse or any other HID device. Midilab is based on a very powerful library that unfortunatly has rather poor documentation & structure. My aim is to make it universally usefull by cleaning up the code, adding new features & making it more userfriendly.
+It also gives you the ability to send MIDI messages by pressing keys on your keyboard or using your mouse or any other HID device. Midicore is based on a very powerful library that unfortunatly has rather poor documentation & structure. My aim is to make it universally usefull by cleaning up the code, adding new features & making it more userfriendly.
 
 
 ## Installation
