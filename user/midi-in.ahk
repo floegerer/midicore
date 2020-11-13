@@ -12,4 +12,6 @@ rules:
 
 ; include pocketdial template
 
+#include user/templates/forward.ahk
 #include user/templates/pocketdial.ahk
+#include user/templates/launchpadx.ahk

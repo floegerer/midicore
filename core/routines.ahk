@@ -1,3 +1,37 @@
+
+
+
+; Wait for key to multi key presses (does not work)
+
+/*
+
+MidiWait:
+{
+  ;Settimer, MidiWait, off
+
+  global holdsent, holdkey
+
+  holdsent := false
+
+  If (type != "")
+  {
+    midiwait := true
+    type := ""
+  }
+
+  If (type == "")
+  {
+    ;Sleep 500
+    midiwait := false
+    Send {%holdkey% up}
+    holdsent := false
+  }
+
+}
+Return
+
+*/
+
 ; Load new settings from midi out menu item
 
 MidiOut:
