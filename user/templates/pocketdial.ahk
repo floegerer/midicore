@@ -28,15 +28,15 @@ if (chan == 1)
     ; Upper Dials 1 - 4
 
     SendCode("Enc", "Key", 1, "{Up}", "{Down}")
-    SendCode("Enc", "Key", 1, "{Up}", "{Down}", "Ctrl", 4)
+    SendCode("Enc", "Key", 1, "{Up 4}", "{Down 4}", "Ctrl")
     SendCode("Enc", "Key", 1, "^+d{Up}!{Right}", "{Enter}", "Alt")
     SendCode("Enc", "Key", 1, "{Shift down}{Up}", "{Shift down}{Down}", "Shift")
     SendCode("Enc", "Key", 1, "^+{Up}", "^+{Down}", "Ctrl + Alt")
     SendCode("Enc", "Key", 1, "+{Up 4}", "+{Down 4}", "Ctrl + Shift")
     SendCode("Enc", "Key", 1, "^+d{Up}!{Right}", "^d", "Alt + Shift")
 
-    SendCode("Enc", "Key", 2, "{Up}", "{Down}",, 2)
-    SendCode("Enc", "Key", 2, "{Up}", "{Down}", "Ctrl", 16)
+    SendCode("Enc", "Key", 2, "{Up 4}", "{Down 4}")
+    SendCode("Enc", "Key", 2, "{Up 16}", "{Down 16}", "Ctrl")
 
     SendCode("Enc", "Key", 3, "^+{Up}", "^+{Down}")
 

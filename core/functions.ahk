@@ -54,12 +54,10 @@ appkey := "AppsKey + "
 
 keymode = %appkey%%win%%ctrl%%alt%%shift%
 
-mode := RegExReplace(keymode, "..$", "")
+mode := SubStr(keymode, 1, -2)
 
 if (mode == "")
 mode := "Default"
-
-;MsgBox %mode%
 
 
 
@@ -68,7 +66,7 @@ mode := "Default"
 SendCode(controller="Enc", code="Key", num=0, keycode1="None", keycode2="None", currentmode="Default", multi=1, hold="none")
 {
 
-  if (mode == currentmode) && (number == num)
+  if ((number == num) && (mode == currentmode))
   {
 
     if (controller == "Enc")
@@ -77,12 +75,10 @@ SendCode(controller="Enc", code="Key", num=0, keycode1="None", keycode2="None", 
       if (change == "negative")
       {
 
-        datanew := (128-value)*multi
-
-        Loop %datanew%
+        ; datanew := (128-value)*multi
+        ; Loop %datanew%
 
         SendInput %keycode1%
-
         KeyOutDisplay(number, keycode1, multi, mode)
 
       }
@@ -90,9 +86,8 @@ SendCode(controller="Enc", code="Key", num=0, keycode1="None", keycode2="None", 
       if (change == "positive")
       {
 
-        datanew := (value)*multi
-
-        Loop %datanew%
+        ; datanew := (value)*multi
+        ; Loop %datanew%
 
         SendInput %keycode2%
         KeyOutDisplay(number, keycode2, multi, mode)

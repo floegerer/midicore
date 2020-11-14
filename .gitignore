@@ -4,7 +4,6 @@
 /bower_components/
 /node_modules/
 /Generic_Midi_App_0.71.ini
-/ArchiveV06/
-/Mouse_Joy/
+/archive/
 .vscode/launch.json
-archive/functions.ahk
+/core/startup.ahk

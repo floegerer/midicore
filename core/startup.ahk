@@ -13,25 +13,25 @@ TestPorts(numports,numports2)
 
 ; Activate all midi devices (experimental)
 
-; MidiinDevice = 0
+MidiinDevice = 0
 
-; while (MidiInDevice < numports) 
-; {
+while (MidiInDevice < numports) 
+{
 
-;   if (MidiinDevice != 5 && MidiinDevice != 4)
-;   {
-;     gosub, MidiListen
-;   }
+  if (MidiinDevice != 5 && MidiinDevice != 4)
+  {
+    gosub, MidiListen
+  }
 
-;   MidiInDevice++
+  MidiInDevice++
 
-; }
+}
 
 
 
 ; Activate Midi In & Out
 
-gosub, MidiListen
+; gosub, MidiListen
 gosub, MidiOut
 gosub, Develop
 
