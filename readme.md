@@ -6,6 +6,18 @@ Midicore is an application written in Autohotkey, that gives you the ability to 
 
 It also gives you the ability to send MIDI messages by pressing keys on your keyboard or using your mouse or any other HID device. Midicore is based on a very powerful library that unfortunatly has rather poor documentation & structure. My aim is to make it universally usefull by cleaning up the code, adding new features & making it more userfriendly.
 
+## Todos
+
+While adding new functionality, i want to refactor the code more and more to make things easier to read and write. The original codebase this project is based upon was very chaotic. Some variable names are hard to identify and there are structural issues.
+
+- Update readme to reflect latest updates
+- Add absolute parameter to SendCode 
+- Enable multi device mode
+- Write functions for SendMIDI (out & relay)
+- Add global device variable
+- Refactor global variables
+- Refactor old variable definitions
+- Cleaner and leaner code
 
 ## Installation
 
@@ -172,12 +184,6 @@ The most important vars are type, number and value. They contain different infor
 | note-on | number | velocity |
 | cc | number | value |
 | pc | number | ignored |
-
-## Todos
-
-I want to refactor the code more and more to make things easier to read and write. The codebase is quite chaotic. Some variable names are hard to identify and there are other usability issues.
-
-- Cleaner and leaner code
 
 ## Endnote
 
