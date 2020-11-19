@@ -1,6 +1,6 @@
-; Process cc messages
+; Process midiCC messages
 
-if type = cc
+if midiType = cc
 {
 
   ; No rules set
@@ -9,18 +9,18 @@ if type = cc
 
 
 
-; Process note-on messages
+; Process midiNote-on messages
 
-if type = noteon
+if midiType = noteon
 {
   ; No rules set
 }
 
 
 
-; Process note-off messages
+; Process midiNote-off messages
 
-if type = noteoff
+if midiType = noteoff
 {
   ; No rules active
 }
@@ -29,7 +29,7 @@ if type = noteoff
 
 ; Process program change
 
-if type = pc
+if midiType = pc
 {
   ; No rules active
 }

@@ -1,3 +1,11 @@
+
+; Declare global variables (needs to be refactored)
+
+global deviceIn, deviceOut, appVersion
+global midiStatus, midiChannel, midiNote, midiCC, midiNum, midiValue, midiType, midiPitch, midiChange, keyMode
+
+
+
 ; Load values from the ini file and refresh ports
 
 ReadIni()
@@ -13,17 +21,17 @@ TestPorts(numports,numports2)
 
 ; Activate all midi devices (experimental)
 
-MidiinDevice = 0
+deviceIn = 0
 
-while (MidiInDevice < numports) 
+while (deviceIn < numports) 
 {
 
-  if (MidiinDevice != 5 && MidiinDevice != 4)
+  if (deviceIn != 5 && deviceIn != 4)
   {
     gosub, MidiListen
   }
 
-  MidiInDevice++
+  deviceIn++
 
 }
 

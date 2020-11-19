@@ -14,7 +14,6 @@
 
 ; Make these vars gobal to be used in other functions
 
-global statusbyte, chan, note, cc, number, value, type, pitchb
 
 
 
@@ -25,26 +24,26 @@ MidiMsgDetect(hInput, midiMsg, wMsg)
 {
   ; Extract Variables by extracting from midi message
 
-  statusbyte := midiMsg & 0xFF ; Extract statusbyte = what type of midi message and what midi channel
-  chan := (statusbyte & 0x0f) + 1 ; WHAT MIDI CHANNEL IS THE MESSAGE ON? EXTRACT FROM STATUSBYTE
-  number := (midiMsg >> 8) & 0xFF ; THIS IS number VALUE = NOTE NUMBER OR CC NUMBER
-  value := (midiMsg >> 16) & 0xFF ; value VALUE IS NOTE VELEOCITY OR CC VALUE
-  pitchb := (value << 7) | number ; (midiMsg >> 8) & 0x7F7F masking to extract the pbs
+  midiStatus := midiMsg & 0xFF ; Extract midiStatus = what type of midi message and what midi channel
+  midiChannel := (midiStatus & 0x0f) + 1 ; WHAT MIDI CHANNEL IS THE MESSAGE ON? EXTRACT FROM STATUSBYTE
+  midiNum := (midiMsg >> 8) & 0xFF ; THIS IS midiNum VALUE = NOTE NUMBER OR CC NUMBER
+  midiValue := (midiMsg >> 16) & 0xFF ; midiValue VALUE IS NOTE VELEOCITY OR CC VALUE
+  midiPitch := (midiValue << 7) | midiNum ; (midiMsg >> 8) & 0x7F7F masking to extract the pbs
 
-  ; Assign type variable for display only
+  ; Assign midiType variable for display only
 
-  if statusbyte between 176 and 191 ; Is message a CC
-  type := "cc" ; if so then set type to CC - only used with the midi monitor
-  if statusbyte between 144 and 159 ; Is message a Note On
-  type := "noteon" ; Set gui var
-  if statusbyte between 128 and 143 ; Is message a Note Off?
-  type := "noteoff" ; set gui to NoteOff
-  if statusbyte between 192 and 208 ;Program Change
-  type := "pc"
-  if statusbyte between 224 and 239 ; Is message a Pitch Bend
-  type := "pitchb" ; Set gui to pb
+  if midiStatus between 176 and 191 ; Is message a CC
+  midiType := "cc" ; if so then set midiType to CC - only used with the midi monitor
+  if midiStatus between 144 and 159 ; Is message a Note On
+  midiType := "noteon" ; Set gui var
+  if midiStatus between 128 and 143 ; Is message a Note Off?
+  midiType := "noteoff" ; set gui to NoteOff
+  if midiStatus between 192 and 208 ;Program Change
+  midiType := "pc"
+  if midiStatus between 224 and 239 ; Is message a Pitch Bend
+  midiType := "pitchb" ; Set gui to pb
 
-  MidiInDisplay(type, statusbyte, chan, number, value) ; Show midi input on midi monitor display
+  MidiInDisplay(midiType, midiStatus, midiChannel, midiNum, midiValue) ; Show midi input on midi monitor display
   gosub, rules ; run rules label to organize
 
 }
@@ -54,12 +53,12 @@ MidiMsgDetect(hInput, midiMsg, wMsg)
 
 ; Show midi input on gui monitor
 
-MidiInDisplay(type, statusbyte, chan, number, value)
+MidiInDisplay(midiType, midiStatus, midiChannel, midiNum, midiValue)
 {
 
   Gui, 14:default
   Gui, 14:ListView, In1 ; see the first listview midi in monitor
-  LV_Add("",type,statusbyte,chan,number,value) ; Setting up the columns for gui
+  LV_Add("",midiType,midiStatus,midiChannel,midiNum,midiValue) ; Setting up the columns for gui
   LV_ModifyCol(1,"center")
   LV_ModifyCol(2,"center")
   LV_ModifyCol(3,"center")
@@ -77,12 +76,12 @@ MidiInDisplay(type, statusbyte, chan, number, value)
 
 ; Show midi output on gui monitor
 
-MidiOutDisplay(type, statusbyte, chan, number, value)
+MidiOutDisplay(midiType, midiStatus, midiChannel, midiNum, midiValue)
 {
 
   Gui, 14:default
   Gui, 14:ListView, Out1 ; see the second listview midi out monitor
-  LV_Add("",type,statusbyte,chan,number,value)
+  LV_Add("",midiType,midiStatus,midiChannel,midiNum,midiValue)
   LV_ModifyCol(1,"center")
   LV_ModifyCol(2,"center")
   LV_ModifyCol(3,"center")
@@ -101,15 +100,15 @@ MidiOutDisplay(type, statusbyte, chan, number, value)
 
 ; Show key output
 
-KeyOutDisplay(number, key, multi, mode) ; update the MidiMonitoritor gui
+KeyOutDisplay(midiNum, key, multi, keyMode) ; update the MidiMonitoritor gui
 {
 
   keyout := RegExReplace(key, "[{}]", "")
-  mode := RegExReplace(mode, "none", "Key")
+  keyMode := RegExReplace(keyMode, "none", "Key")
 
   Gui, 14:default
   Gui, 14:ListView, Out1 ; see the second listview midi out monitor
-  LV_Add("",number, keyout, multi, mode)
+  LV_Add("",midiNum, keyout, multi, keyMode)
   LV_ModifyCol(1,"center")
   LV_ModifyCol(2,"center")
   LV_ModifyCol(3,"center")
@@ -273,7 +272,7 @@ MidiOutNameGet(uDeviceID = 0)
 
 
 
-; Returns number of midi output devices, creates global array MidiOutPortName with their names
+; Returns number of midi output devices, creates array MidiOutPortName with their names
 
 MidiOutsEnumerate()
 {
@@ -382,7 +381,7 @@ MidiInNameGet(uDeviceID = 0)
 
 
 
-; Returns number of midi output devices, creates global array MidiOutPortName with their names
+; Returns number of midi output devices, creates array MidiOutPortName with their names
 
 MidiInsEnumerate()
 {

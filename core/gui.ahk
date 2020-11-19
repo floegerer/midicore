@@ -5,7 +5,7 @@
 
 MidiMonitor: ; midi monitor gui with listviews
 {
-  posx := A_ScreenWidth - 480
+  posx := A_ScreenWidth - 640
   posy := A_ScreenHeight - 380
   ; MsgBox %posx%
 
@@ -15,8 +15,8 @@ MidiMonitor: ; midi monitor gui with listviews
   Gui, 14: Add, DropDownList, x40 y20 w140 Choose%TheChoice% vMidiInPort gDoneInChange altsubmit -tabstop, %MiList% ; (
   Gui, 14: add, text, x305 y5, MIDI Ouput ; %TheChoice2%
   Gui, 14: Add, DropDownList, x270 y20 w140 Choose%TheChoice2% vMidiOutPort gDoneOutChange altsubmit -tabstop, %MoList%
-  Gui, 14: Add, ListView, x5 r11 w220 Backgroundblack caqua Count10 vIn1 -tabstop, type|status|channel|number|value|
-  Gui, 14: Add, ListView, x+5 r11 w220 Backgroundblack cyellow Count10 vOut1 -tabstop, type|status|channel|number|value|
+  Gui, 14: Add, ListView, x5 r11 w300 Backgroundblack caqua Count10 vIn1 -tabstop, midiType|midiStatus|midiChannel|midiNum|midiValue|
+  Gui, 14: Add, ListView, x+5 r11 w300 Backgroundblack cyellow Count10 vOut1 -tabstop, midiType|midiStatus|midiChannel|midiNum|midiValue|
   Gui, 14: +AlwaysOnTop
   Gui, 14: add, Button, x5 w220 gSet_Done, Save && Reload
   Gui, 14: add, Button, xp+225 w220 gCancel, Cancel
@@ -45,7 +45,7 @@ MidiSet:
   Gui, 4: Add, ListBox, x220 y62 w200 h100 Choose%TheChoice2% vMidiOutPort gDoneOutChange AltSubmit, %MoList% ; --- midi out listing
   Gui, 4: add, Button, x10 w205 gSet_Done, Done - Reload script.
   Gui, 4: add, Button, xp+205 w205 gCancel, Cancel
-  Gui, 4: show , , %version% Midi Port Selection ; main window title and command to show it.
+  Gui, 4: show , , %appVersion% Midi Port Selection ; main window title and command to show it.
 }
 Return
 
@@ -61,11 +61,11 @@ DoneInChange:
   Gui, 4: Submit, NoHide
   Gui, 4: Flash
   If %MidiInPort%
-  UDPort:= MidiInPort - 1, MidiInDevice:= UDPort ; probably a much better way do this, I took this from JimF's qwmidi without out editing much.... it does work same with doneoutchange below.
+  UDPort:= MidiInPort - 1, deviceIn:= UDPort ; probably a much better way do this, I took this from JimF's qwmidi without out editing much.... it does work same with doneoutchange below.
   GuiControl, 4:, UDPort, %MidiIndevice%
   WriteIni()
 
-  ; MsgBox, 32, , midi in device = %MidiInDevice%`nmidiinport = %MidiInPort%`nport = %port%`ndevice= %device% `n UDPort = %UDport% ; UNCOMMENT FOR TESTING IF NEEDED
+  ; MsgBox, 32, , midi in device = %deviceIn%`nmidiinport = %MidiInPort%`nport = %port%`ndevice= %device% `n UDPort = %UDport% ; UNCOMMENT FOR TESTING IF NEEDED
 }
 Return
 
@@ -81,7 +81,7 @@ DoneOutChange:
   Gui, 4: Submit, NoHide
   Gui, 4: Flash
   If %MidiOutPort%
-  UDPort2:= MidiOutPort - 1 , MidiOutDevice:= UDPort2
+  UDPort2:= MidiOutPort - 1 , deviceOut:= UDPort2
   GuiControl, 4: , UDPort2, %MidiOutdevice%
   WriteIni()
 
@@ -121,10 +121,10 @@ Return
 
 ResetAll:
 {
-  MsgBox, 33, %version% - Reset All?, This will delete ALL settings`, and restart this program!
+  MsgBox, 33, %appVersion% - Reset All?, This will delete ALL settings`, and restart this program!
   IfMsgBox, OK
   {
-    FileDelete, core/%version%.ini ; delete the ini file to reset ports, probably a better way to do this ...
+    FileDelete, core/%appVersion%.ini ; delete the ini file to reset ports, probably a better way to do this ...
     Reload ; restart the app
   }
   IfMsgBox, Cancel
@@ -140,7 +140,7 @@ Return
 GuiClose:
 {
   Suspend, Permit ; allow Exit to work Paused.
-  MsgBox, 4, Exit %version%, Exit %version% %ver%?
+  MsgBox, 4, Exit %appVersion%, Exit %appVersion% %ver%?
   IfMsgBox No
   Return
   Else IfMsgBox Yes

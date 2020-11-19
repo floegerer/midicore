@@ -9,17 +9,17 @@ MidiWait:
 {
   ;Settimer, MidiWait, off
 
-  global holdsent, holdkey
+   holdsent, holdkey
 
   holdsent := false
 
-  If (type != "")
+  If (midiType != "")
   {
     midiwait := true
-    type := ""
+    midiType := ""
   }
 
-  If (type == "")
+  If (midiType == "")
   {
     ;Sleep 500
     midiwait := false
@@ -37,7 +37,7 @@ Return
 MidiOut:
 {
   OpenCloseMidiAPI()
-  h_midiout := midiOutOpen(MidiOutDevice) ; OUTPUT PORT 1 SEE BELOW FOR PORT 2
+  h_midiout := midiOutOpen(deviceOut) ; OUTPUT PORT 1 SEE BELOW FOR PORT 2
 }
 Return
 
@@ -51,13 +51,13 @@ MidiPortRefresh: ; get the list of ports
   Loop Parse, MIlist, |
   {
   }
-  TheChoice := MidiInDevice + 1
+  TheChoice := deviceIn + 1
 
   MOlist := MidiOutsList(NumPorts2) ; Get midi outputs list
   Loop Parse, MOlist, |
   {
   }
-  TheChoice2 := MidiOutDevice + 1
+  TheChoice2 := deviceOut + 1
 }
 Return
 
@@ -67,11 +67,11 @@ Return
 
 MidiListen:
 {
-  DeviceID := MidiInDevice ; midiindevice from IniRead above assigned to deviceid
+  DeviceID := deviceIn ; midiindevice from IniRead above assigned to deviceid
   CALLBACK_WINDOW := 0x10000 ; from orbiks code for midi input
 
   Gui, +LastFound ; set up the window for midi data to arrive.
-  hWnd := WinExist() ;MsgBox, 32, , line 176 - mcu-input is := %MidiInDevice% , 3 ; this is just a test to show midi device selection
+  hWnd := WinExist() ;MsgBox, 32, , line 176 - mcu-input is := %deviceIn% , 3 ; this is just a test to show midi device selection
 
   hMidiIn =
   VarSetCapacity(hMidiIn, 4, 0)

@@ -4,7 +4,7 @@
 
 ; Only if Ableton Live 10 active
 
-if (chan == 1)
+if (midiChannel == 1)
 {
 
 

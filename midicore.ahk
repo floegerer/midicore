@@ -24,9 +24,9 @@ if A_OSVersion in WIN_NT4,WIN_95,WIN_98,WIN_ME ; If not Windows XP or greater, q
 
 
 
-; Set midicore version
+; Set midicore appVersion
 
-version = midicore
+appVersion = midicore
 
 
 

@@ -4,7 +4,7 @@
 
 ; Any Application except Live 10
 
-if (chan == 11)
+if (midiChannel == 11)
 {
 
   if (application != "Code.exe")

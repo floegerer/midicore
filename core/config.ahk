@@ -16,11 +16,10 @@ ReadIni()
   menu, tray, Rename, ResetAll, Reset port selection
   menu, tray, Rename, MidiMonitor, Show IO Monitor (Ctrl+Alt+M)
 
-  global MidiInDevice, MidiOutDevice, version ; version var is set at the beginning.
   IfExist, core/settings.ini
   {
-    IniRead, MidiInDevice, core/settings.ini, Settings, MidiInDevice , %MidiInDevice% ; read the midi In port from ini file
-    IniRead, MidiOutDevice, core/settings.ini, Settings, MidiOutDevice , %MidiOutDevice% ; read the midi out port from ini file
+    IniRead, deviceIn, core/settings.ini, Settings, deviceIn , %deviceIn% ; read the midi In port from ini file
+    IniRead, deviceOut, core/settings.ini, Settings, deviceOut , %deviceOut% ; read the midi out port from ini file
   }
   Else ; no ini exists and this is either the first run or reset settings.
   {
@@ -39,9 +38,8 @@ ReadIni()
 
 WriteIni()
 {
-  global MidiInDevice, MidiOutDevice, version
   IfNotExist, core/settings.ini ; if no .ini
   FileAppend,, core/settings.ini ; make .ini with the following entries.
-  IniWrite, %MidiInDevice%, core/settings.ini, Settings, MidiInDevice
-  IniWrite, %MidiOutDevice%, core/settings.ini, Settings, MidiOutDevice
+  IniWrite, %deviceIn%, core/settings.ini, Settings, deviceIn
+  IniWrite, %deviceOut%, core/settings.ini, Settings, deviceOut
 }

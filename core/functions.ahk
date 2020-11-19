@@ -1,35 +1,29 @@
 WinGet, application, ProcessName, A
 
-inc := value
-dec := 128-value
-type := type
-ccnum := number
+inc := midiValue
+dec := 128-midiValue
+ccnum := midiNum
+
 
 ;MsgBox, %application%
 
 
 
-; Define global vars for functions
-
-global change, number, type, mode
-
-
-
 ; Defince helper vars or functions
 
-if value between 1 and 10
+if midiValue between 1 and 10
 {
-  change := "positive"
+  midiChange := "positive"
 }
 
-if value between 120 and 127
+if midiValue between 120 and 127
 {
-  change := "negative"
+  midiChange := "negative"
 }
 
 
 
-; Get modifier key state and set mode var
+; Get modifier key state and set keyMode var
 
 ctrl := ""
 shift := ""
@@ -54,10 +48,10 @@ appkey := "AppsKey + "
 
 keymode = %appkey%%win%%ctrl%%alt%%shift%
 
-mode := SubStr(keymode, 1, -2)
+keyMode := SubStr(keymode, 1, -2)
 
-if (mode == "")
-mode := "Default"
+if (keyMode == "")
+keyMode := "Default"
 
 
 
@@ -66,37 +60,37 @@ mode := "Default"
 SendCode(controller="Enc", code="Key", num=0, keycode1="None", keycode2="None", currentmode="Default", multi=1, hold="none")
 {
 
-  if ((number == num) && (mode == currentmode))
+  if ((midiNum == num) && (keyMode == currentmode))
   {
 
     if (controller == "Enc")
     {
 
-      if (change == "negative")
+      if (midiChange == "negative")
       {
 
-        ; datanew := (128-value)*multi
+        ; datanew := (128-midiValue)*multi
         ; Loop %datanew%
 
         SendInput %keycode1%
-        KeyOutDisplay(number, keycode1, multi, mode)
+        KeyOutDisplay("key", keycode1, multi, keyMode)
 
       }
 
-      if (change == "positive")
+      if (midiChange == "positive")
       {
 
-        ; datanew := (value)*multi
+        ; datanew := (midiValue)*multi
         ; Loop %datanew%
 
         SendInput %keycode2%
-        KeyOutDisplay(number, keycode2, multi, mode)
+        KeyOutDisplay("key", keycode2, multi, keyMode)
 
       }
 
     }
 
-    if (controller == "Pad") && (value == 127)
+    if (controller == "Pad") && (midiValue == 127)
     {
 
       if (code == "Key")
@@ -123,7 +117,7 @@ SendCode(controller="Enc", code="Key", num=0, keycode1="None", keycode2="None", 
         }
       }
 
-      KeyOutDisplay(number, keycode1, multi, mode)
+      KeyOutDisplay(midiNum, keycode1, multi, keyMode)
 
     }
 
@@ -138,16 +132,16 @@ SendCode(controller="Enc", code="Key", num=0, keycode1="None", keycode2="None", 
 SendKey(num, key1, key2, currentmode="Default", multi=1, mod1="none", mod2="none")
 {
 
-  if (mode == currentmode)
+  if (keyMode == currentmode)
   {
 
-    IfEqual, number, %num%
+    IfEqual, midiNum, %num%
     {
 
-      if value between 120 and 127
+      if midiValue between 120 and 127
       {
 
-        datanew := (128-value)*multi
+        datanew := (128-midiValue)*multi
 
         if (mod1 == "none")
         SendInput {%key1% %datanew%}
@@ -161,10 +155,10 @@ SendKey(num, key1, key2, currentmode="Default", multi=1, mod1="none", mod2="none
 
       }
 
-      if value between 1 and 10
+      if midiValue between 1 and 10
       {
 
-        datanew := (value)*multi
+        datanew := (midiValue)*multi
 
         if (mod1 == "none")
         SendInput {%key2% %datanew%}
