@@ -22,6 +22,7 @@
 
 MidiMsgDetect(hInput, midiMsg, wMsg)
 {
+
   ; Extract Variables by extracting from midi message
 
   midiStatus := midiMsg & 0xFF ; Extract midiStatus = what type of midi message and what midi channel
@@ -44,7 +45,9 @@ MidiMsgDetect(hInput, midiMsg, wMsg)
   midiType := "pitchb" ; Set gui to pb
 
   MidiInDisplay(midiType, midiStatus, midiChannel, midiNum, midiValue) ; Show midi input on midi monitor display
-  gosub, rules ; run rules label to organize
+  gosub, MidiInput ; run MidiInput label to organize
+
+  ;MsgBox "Return"
 
 }
 
