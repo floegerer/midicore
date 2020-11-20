@@ -11,12 +11,12 @@ It also gives you the ability to send MIDI messages by pressing keys on your key
 While adding new functionality, i want to refactor the code more and more to make things easier to read and write. The original codebase this project is based upon was very chaotic. Some variable names are hard to identify and there are structural issues.
 
 - Update readme to reflect latest updates
-- Add absolute parameter to SendCode 
+- ~~Add absolute parameter to SendCode~~
 - Enable multi device mode
 - Write functions for SendMIDI (out & relay)
 - Add global device variable
-- Refactor global variables
-- Refactor old variable definitions
+- ~~Refactor global variables~~
+- ~~Refactor old variable definitions~~
 - Cleaner and leaner code
 
 ## Installation
