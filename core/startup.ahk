@@ -2,8 +2,9 @@
 ; Declare global variables (needs to be refactored)
 
 global deviceIn, deviceOut, appVersion
-global midiStatus, midiChannel, midiNote, midiCC, midiNum, midiValue, midiType, midiPitch, midiChange, keyMode
+global midiStatus, midiChannel, midiNote, midiCC, midiNum, midiValue, midiValuePrev, midiType, midiPitch, keyMode
 
+midiValuePrev := 0
 
 
 ; Load values from the ini file and refresh ports

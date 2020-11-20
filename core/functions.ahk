@@ -1,29 +1,9 @@
 WinGet, application, ProcessName, A
-
-inc := midiValue
-dec := 128-midiValue
-ccnum := midiNum
-
-
 ;MsgBox, %application%
 
 
 
-; Defince helper vars or functions
-
-if midiValue between 1 and 10
-{
-  midiChange := "positive"
-}
-
-if midiValue between 120 and 127
-{
-  midiChange := "negative"
-}
-
-
-
-; Get modifier key state and set keyMode var
+; Get modifier key state and set keyMode var (would prefer a switch statement, needs refactoring)
 
 ctrl := ""
 shift := ""
@@ -47,7 +27,6 @@ if getKeyState("None")
 appkey := "AppsKey + "
 
 keymode = %appkey%%win%%ctrl%%alt%%shift%
-
 keyMode := SubStr(keymode, 1, -2)
 
 if (keyMode == "")
@@ -57,46 +36,65 @@ keyMode := "Default"
 
 ; New default function for sending out hotkeys triggered by MIDI messages
 
-SendCode(controller="Enc", code="Key", num=0, keycode1="None", keycode2="None", currentmode="Default", multi=1, hold="none")
+SendCode(controller="Relative", code="Key", num=0, keycode1="None", keycode2="None", currentmode="Default")
 {
 
   if ((midiNum == num) && (keyMode == currentmode))
   {
 
-    if (controller == "Enc")
+
+    ; Declare helper vars
+
+    if midiValue between 1 and 10
+    {
+      midiChange := "positive"
+    }
+
+    if midiValue between 120 and 127
+    {
+      midiChange := "negative"
+    }
+
+
+
+    ; Define mode for endless encoders named "Relative"
+
+    if (controller == "Relative")
     {
 
       if (midiChange == "negative")
       {
 
-        ; datanew := (128-midiValue)*multi
-        ; Loop %datanew%
-
         SendInput %keycode1%
-        KeyOutDisplay("key", keycode1, multi, keyMode)
+        KeyOutDisplay("key", keycode1, "-", keyMode)
 
       }
 
       if (midiChange == "positive")
       {
 
-        ; datanew := (midiValue)*multi
-        ; Loop %datanew%
-
         SendInput %keycode2%
-        KeyOutDisplay("key", keycode2, multi, keyMode)
+        KeyOutDisplay("key", keycode2, "-", keyMode)
 
       }
 
     }
 
-    if (controller == "Pad") && (midiValue == 127)
+
+
+    ; Define mode for a momentary button named "Momentary"
+
+    if (controller == "Momentary") && (midiValue == 127)
     {
+
+      ; Define keycode mode
 
       if (code == "Key")
       {
         SendInput %keycode1%
       }
+
+      ; Define app launch mode
 
       if (code == "App")
       {
@@ -117,17 +115,49 @@ SendCode(controller="Enc", code="Key", num=0, keycode1="None", keycode2="None", 
         }
       }
 
-      KeyOutDisplay(midiNum, keycode1, multi, keyMode)
+      ; End Pad mode function
+
+      KeyOutDisplay(midiNum, keycode1, "-", keyMode)
+
+    }
+
+
+
+    ; Define mode for absolute Knob 
+
+    if (controller == "Absolute")
+    {
+
+      valueChange := midiValue-midiValuePrev
+
+      if (valueChange < 0)
+      {
+
+        SendInput %keycode1%
+        KeyOutDisplay("key", keycode1, "-", keyMode)
+        midiValuePrev := midiValue
+
+      }
+
+      if (valueChange > 0)
+      {
+
+        SendInput %keycode2%
+        KeyOutDisplay("key", keycode2, "-", keyMode)
+        midiValuePrev := midiValue
+
+      }
+
+      KeyOutDisplay(midiNum, keycode1, "-", keyMode)
 
     }
 
   }
-
 }
 
 
 
-; Simple sendkey function for sending out single keys
+; Simple sendkey function for sending out single keys (Deprecated)
 
 SendKey(num, key1, key2, currentmode="Default", multi=1, mod1="none", mod2="none")
 {
