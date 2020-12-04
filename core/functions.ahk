@@ -92,6 +92,7 @@ SendCode(controller="Relative", code="Key", num=0, keycode1="None", keycode2="No
       if (code == "Key")
       {
         SendInput %keycode1%
+        KeyOutDisplay("key", keycode1, "-", keyMode)
       }
 
       ; Define app launch mode
@@ -113,11 +114,12 @@ SendCode(controller="Relative", code="Key", num=0, keycode1="None", keycode2="No
         } else {
         Run %keycode1%
         }
+
+        KeyOutDisplay("app", keycode1, "-", keyMode)
+
       }
 
       ; End Pad mode function
-
-      KeyOutDisplay(midiNum, keycode1, "-", keyMode)
 
     }
 
