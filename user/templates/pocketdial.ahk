@@ -18,6 +18,19 @@ if (midiChannel == 1)
   }
 
 
+  if application = Resolve.exe
+  {
+
+    SendCode("Relative", "Key", 7 + 8, "{Left}", "{Right}") 
+    SendCode("Relative", "Key", 7 + 8, "{Left 4}", "{Right 4}", "Shift") 
+    SendCode("Relative", "Key", 7 + 8, "{Left 8}", "{Right 8}", "Alt") 
+    SendCode("Relative", "Key", 8 + 8, "+{Left}", "+{Right}") 
+    SendCode("Relative", "Key", 8 + 8, "+{Left 4}", "+{Right 4}", "Shift") 
+    SendCode("Relative", "Key", 8 + 8, "+{Left 64}", "+{Right 64}", "Alt") 
+
+  }
+
+
 
   ; Any Application except Live 10
 
