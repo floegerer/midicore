@@ -6,7 +6,7 @@ return
 
 ; Reload application
 
-~!^s::
+#s::
 Sleep 250
 Reload
 Sleep 500
@@ -16,7 +16,7 @@ return
 
 ; Define helper hotkeys, open Monitor
 
-!^m::
+#m::
 GoSub, MidiMonitor
 return
 
